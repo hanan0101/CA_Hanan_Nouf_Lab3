@@ -1,0 +1,31 @@
+.data
+
+myValue: .word 0x12345678
+
+.text
+.globl main
+main:
+    la x11, myValue     # Load base address into x11
+
+    # Load bytes using lb
+    lb x1, 0(x11)          # Load first byte (0x0C) into x1
+    lb x2, 1(x11)          # Load second byte (0x34) into x2
+    lb x3, 2(x11)          # Load third byte (0x56) into x3
+    lb x4, 3(x11)          # Load fourth byte (0x78) into x4
+
+    # Store bytes in reverse order using sb
+    sb x4, 0(x11)          # Store byte 0x78 at address 0x10000000
+    sb x3, 1(x11)          # Store byte 0x56 at address 0x10000001
+    sb x2, 2(x11)          # Store byte 0x34 at address 0x10000002
+    sb x1, 3(x11)          # Store byte 0x0C at address 0x10000003
+
+    # Load the reversed word into a register for printing
+    lw a1, 0(x11)          # Load the entire reversed word into a1
+
+    # Print the value in hex
+    li a0, 34              # System call for print_hex
+    ecall                  # Make the system call to print
+
+    # Exit the program
+    li a0, 10              # Prepare for exit
+    ecall                  # Make the system call to exit

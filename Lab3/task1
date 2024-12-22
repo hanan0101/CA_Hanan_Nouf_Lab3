@@ -1,0 +1,35 @@
+.data
+    # Initialize data at specified addresses
+    
+    
+  myData:  .word 87, 65, 43, 12    # Starting at address 0x10000000
+    .word 34, 56, 78, 90    # Starting at address 0x10000004
+    
+    
+    
+  .text
+   .globl main 
+  Lode:
+  
+la x11 myData # base address will strat from here 
+
+
+lw x5 0(x11) # load by word offeste 0 +x11
+lw x6 4(x11) # offeste 4+x11=0x10000004
+  
+ add x10 x5 x6 
+  
+  
+ sw x10 8(x11) #stor to memory 8+x11 = x0x10000008
+    
+# Print the result using a system call
+li a0, 1
+# System call for printing an integer
+ecall
+# Exit the program
+li a0, 10
+# System call for exit
+ecall
+  
+
+
